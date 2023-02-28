@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vincent Chung's Solar System Project</title>
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+		canvas {
+			background-color: black;
+			display: block;
+			margin: auto;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+        <script src="solar-system.js"></script>
+	<script>
+		const canvas = document.getElementById("canvas");
+		const context = canvas.getContext("2d");
+
+		let width, height;
+		let solarSystem;
+
+		function setup() {
+			width = window.innerWidth;
+			height = window.innerHeight;
+
+			canvas.width = width;
+			canvas.height = height;
+
+			solarSystem = new SolarSystem(width, height);
+			solarSystem.init();
+		}
+
+		function draw() {
+			context.clearRect(0, 0, width, height);
+
+			context.save();
+			context.translate(width / 2, height / 2);
+			solarSystem.update();
+			solarSystem.draw(context);
+			context.restore();
+		}
+
+		window.addEventListener('resize', setup);
+		setup();
+		setInterval(draw, 16);
+
+		// 處理滾動
+		let isDragging = false;
+		let lastX, lastY;
+
+		canvas.addEventListener('mousedown', function(event) {
+			isDragging = true;
+			lastX = event.clientX;
+			lastY = event.clientY;
+		});
+
+		canvas.addEventListener('mouseup', function(event) {
+			isDragging = false;
+		});
+
+		canvas.addEventListener('mousemove', function(event) {
+			if (isDragging) {
+				const dx = event.clientX - lastX;
+				const dy = event.clientY - lastY;
+				const scale = solarSystem.scale;
+
+				solarSystem.translate(dx / scale, dy / scale);
+
+				lastX = event.clientX;
+				lastY = event.clientY;
+			}
+		});
+
+		canvas.addEventListener('wheel', function(event) {
+			const delta = event.deltaY;
+			const scale = solarSystem.scale;
+
+			if (delta > 0) {
+				solarSystem.scale /= 1.1;
+			} else {
+				solarSystem.scale *= 1.1;
+			}
+		});
+	</script>
+</body>
+</html>
+
