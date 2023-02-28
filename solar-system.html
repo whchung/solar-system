@@ -54,6 +54,11 @@
     border-top: none;
   }
 
+  .label {
+    font-size: 36px;
+    text-align: center;
+  }
+
 	</style>
 
   <!-- https://www.w3schools.com/howto/howto_js_tabs.asp -->
@@ -68,6 +73,10 @@
     for (i = 0; i < tablinks.length; i++) {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
+    labels = document.getElementsByClassName("label");
+    for (i = 0; i < labels.length; i++) {
+      labels[i].style.display = "none";
+    }
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
   }
@@ -78,7 +87,7 @@
 
 <!-- https://www.w3schools.com/howto/howto_js_tabs.asp -->
 <div class="tab">
-<button class="tablinks" onclick="openTab(event, 'Animation')">Solar System Animation</button>
+<button class="tablinks" onclick="openTab(event, 'Animation')">Animation</button>
 <button class="tablinks" onclick="openTab(event, 'Facts')">Solar System Facts</button>
 </div>
 
@@ -161,6 +170,9 @@
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRThZcD21mw20bIZvUvauHKHEOnaP_qsggksrg6XVw-LOCWMfRZiOG22lW4kbDYTfHHzV4g5dDy6LUY/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" height="300" style="width:100%"></iframe>
 </div>
 
+<div id="Introduction" class="label">
+Vincent Chung's Solar System Project
+</div>
 </body>
 </html>
 
